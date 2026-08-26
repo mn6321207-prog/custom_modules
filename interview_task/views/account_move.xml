@@ -1,0 +1,36 @@
+<odoo>
+    <record id="view_move_form_inherit_check" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.check</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='invoice_date']" position="after">
+                <field name="check"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='quantity']" position="before">
+                <field name="tracking" column_invisible="1"/>
+                <field name="serial_ids" required="tracking !='none'" widget="many2many_tags"
+                       invisible="tracking == 'none'"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <!--                <button name="action_delivery_related"-->
+                <!--                        type="object"-->
+                <!--                        string="Delivary"-->
+                <!--                        invisible="delivery_count == 0 "-->
+                <!--                        class="oe_stat_button"-->
+                <!--                        icon="ffa-pencil-square-o">-->
+                <!--                    <field name="delivery_count" string="Delivery"/>-->
+                <!--                    Delivery-->
+                <!--                </button>-->
+                <button name="action_delivery_related"
+                        type="object"
+                        class="oe_stat_button"
+                        string="Delivery"
+                        icon="fa-truck" invisible="delivery_count == 0 ">
+                    <field name="delivery_count" widget="statinfo" string="Delivery"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
